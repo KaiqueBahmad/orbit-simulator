@@ -1,6 +1,3 @@
-
-
-
 #Exemplo de função para ajudar quem for escrever aqui
 def zero_filled_array(array_size): #Coloque nomes entendíveis nos argumentos
     array = []
