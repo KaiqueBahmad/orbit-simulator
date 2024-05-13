@@ -12,7 +12,7 @@ def zero_filled_array(array_size): #Coloque nomes entendíveis nos argumentos
             # funcionando, remova os prints!!
 
 def allPeersList(source:list) -> list:
-    
+    a
     return []
 
 
