@@ -12,11 +12,6 @@ def zero_filled_array(array_size): #Coloque nomes entendíveis nos argumentos
             # funcionando, remova os prints!!
 
 def allPeersList(source:list) -> list:
-    #teste
-    return []
-
-
-def allPeersList(source:list) -> list:
     retorno = set()
     for element in source:
         for element_ in source:
