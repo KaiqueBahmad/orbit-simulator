@@ -8,8 +8,13 @@ def zero_filled_array(array_size): #Coloque nomes entendíveis nos argumentos
     for i in range(array_size):
         array.append(0)
     return array #A saída NAO deve ser um print, deve ser sempre um retorno
-                 # Use prints apenas para DEBUGAR assim que o código estiver
-                 # funcionando, remova os prints!!
+            # Use prints apenas para DEBUGAR assim que o código estiver
+            # funcionando, remova os prints!!
+
+def allPeersList(source:list) -> list:
+    #teste
+    return []
+
 
 def allPeersList(source:list) -> list:
     retorno = set()
@@ -38,8 +43,10 @@ def forceBetween(b1:Body, b2:Body, G:float=1) -> list :
 
 
 if __name__ == "__main__":
-    b1 = Body(120000000, 0, 0, 0, 0)
-    b2 = Body(120000, -3, 0, 0,0)
-    G = 6.6743*10**(-11)
-    print(forceBetween(b1, b2,G=G))
+    print(allPeersList([1,2]))
+    # b1 = Body(120000000, 0, 0, 0, 0)
+    # b2 = Body(120000, -3, 0, 0,0)
+    # G = 6.6743*10**(-11)
+    # print(forceBetween(b1, b2,G=G))
+
 
