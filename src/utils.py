@@ -11,6 +11,15 @@ def zero_filled_array(array_size): #Coloque nomes entendíveis nos argumentos
                  # Use prints apenas para DEBUGAR assim que o código estiver
                  # funcionando, remova os prints!!
 
+def allPeersList(source:list) -> list:
+    retorno = set()
+    for element in source:
+        for element_ in source:
+            if element == element_:
+                continue
+            retorno.add((element, element_))
+    return list(retorno)
+
 #G stands for the gravitional constant, bigger it's more powerful gravity will be
 def forceBetween(b1:Body, b2:Body, G:float=1) -> list :
     distance:float = ( (b1.x - b2.x)**2 + (b1.y - b2.y)**2 )**(1/2)
