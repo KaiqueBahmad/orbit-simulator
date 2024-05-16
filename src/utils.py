@@ -12,9 +12,17 @@ def zero_filled_array(array_size): #Coloque nomes entendíveis nos argumentos
             # funcionando, remova os prints!!
 
 def allPeersList(source:list) -> list:
-    #teste
-    return []
-
+    retorno = set()
+    for element in source:
+        for element_ in source:
+            if element == element_:
+                continue
+            retorno.add((element, element_))
+    return list(retorno)
+    
+def somaLista(a:list,b:list) -> list:
+    soma = [a[0]+b[0], a[1]+b[1]]
+    return soma
 
 #G stands for the gravitional constant, bigger it's more powerful gravity will be
 def forceBetween(b1:Body, b2:Body, G:float=1) -> list :
