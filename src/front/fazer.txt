@@ -1,0 +1,5 @@
+-criar dois eventos:
+1.mousePressEvent - rastreia a posição do click do mouse
+2.mouseReleaseEvent - rastreia a posição de quando o click foi solto
+
+-Processar esses eventos para calcular o quanto a tela deve mover
