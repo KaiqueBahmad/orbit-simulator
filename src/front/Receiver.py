@@ -12,7 +12,7 @@ if os.name == "nt":
 # Fica lendo o arquivo em loop, quando ele mudar, limpa a tela e exibe o arquivo
 last_content = ''
 while True:
-    with open('../bridge.txt','r') as file:
+    with open('../mailbox','r') as file:
         content =file.read(-1)
         if content != last_content:
             os.system(clear)
