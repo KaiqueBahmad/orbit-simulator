@@ -11,6 +11,10 @@ def zero_filled_array(array_size): #Coloque nomes entendíveis nos argumentos
             # Use prints apenas para DEBUGAR assim que o código estiver
             # funcionando, remova os prints!!
 
+def somaLista(a:list,b:list) -> list:
+    soma = [a[0]+b[0], a[1]+b[1]]
+    return soma
+
 def allPeersList(source:list) -> list:
     retorno = set()
     for element in source:
