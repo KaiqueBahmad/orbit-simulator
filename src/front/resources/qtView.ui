@@ -35,7 +35,7 @@
    <property name="frameShape">
     <enum>QFrame::Shape::NoFrame</enum>
    </property>
-   <widget class="QFrame" name="containerInputs_3">
+   <widget class="QFrame" name="containerInputs">
     <property name="geometry">
      <rect>
       <x>20</x>
@@ -43,6 +43,9 @@
       <width>330</width>
       <height>160</height>
      </rect>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
     </property>
     <property name="styleSheet">
      <string notr="true">QFrame#containerInputs{
@@ -56,7 +59,7 @@
     <property name="frameShape">
      <enum>QFrame::Shape::NoFrame</enum>
     </property>
-    <widget class="QLabel" name="X_3">
+    <widget class="QLabel" name="X">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -73,7 +76,7 @@ color: white;</string>
       <string>X:</string>
      </property>
     </widget>
-    <widget class="QLabel" name="Y_3">
+    <widget class="QLabel" name="Y">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -90,7 +93,7 @@ color: white;</string>
       <string>Y:</string>
      </property>
     </widget>
-    <widget class="QLabel" name="Massa_3">
+    <widget class="QLabel" name="Massa">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -107,7 +110,7 @@ color: white;</string>
       <string>Massa:</string>
      </property>
     </widget>
-    <widget class="QLabel" name="VelocidadeX_3">
+    <widget class="QLabel" name="VelocidadeX">
      <property name="geometry">
       <rect>
        <x>160</x>
@@ -124,7 +127,7 @@ color: white;</string>
       <string>VelocidadeX:</string>
      </property>
     </widget>
-    <widget class="QLabel" name="VelocidadeY_3">
+    <widget class="QLabel" name="VelocidadeY">
      <property name="geometry">
       <rect>
        <x>160</x>
@@ -141,7 +144,7 @@ color: white;</string>
       <string>VelocidadeY:</string>
      </property>
     </widget>
-    <widget class="QTextEdit" name="valorX_3">
+    <widget class="QTextEdit" name="valorX">
      <property name="geometry">
       <rect>
        <x>70</x>
@@ -172,7 +175,7 @@ color: black;</string>
       <enum>Qt::ScrollBarPolicy::ScrollBarAsNeeded</enum>
      </property>
     </widget>
-    <widget class="QPushButton" name="criarPlaneta_3">
+    <widget class="QPushButton" name="criarPlaneta">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -195,7 +198,7 @@ border-color: white;</string>
       <string>Criar Planeta</string>
      </property>
     </widget>
-    <widget class="QTextEdit" name="valorY_3">
+    <widget class="QTextEdit" name="valorY">
      <property name="geometry">
       <rect>
        <x>70</x>
@@ -223,7 +226,7 @@ color: black;</string>
       <enum>Qt::ScrollBarPolicy::ScrollBarAsNeeded</enum>
      </property>
     </widget>
-    <widget class="QTextEdit" name="valorMassa_3">
+    <widget class="QTextEdit" name="valorMassa">
      <property name="geometry">
       <rect>
        <x>70</x>
@@ -251,7 +254,7 @@ color: black;</string>
       <enum>Qt::ScrollBarPolicy::ScrollBarAsNeeded</enum>
      </property>
     </widget>
-    <widget class="QTextEdit" name="ValorVeloX_3">
+    <widget class="QTextEdit" name="ValorVeloX">
      <property name="geometry">
       <rect>
        <x>250</x>
@@ -279,7 +282,7 @@ color: black;</string>
       <enum>Qt::ScrollBarPolicy::ScrollBarAsNeeded</enum>
      </property>
     </widget>
-    <widget class="QTextEdit" name="ValorVeloY_3">
+    <widget class="QTextEdit" name="ValorVeloY">
      <property name="geometry">
       <rect>
        <x>250</x>
@@ -308,49 +311,157 @@ color: black;</string>
      </property>
     </widget>
    </widget>
-   <widget class="QPushButton" name="zoomIn_3">
+   <widget class="QFrame" name="containerControls">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
-      <x>700</x>
-      <y>435</y>
-      <width>21</width>
-      <height>23</height>
+      <x>580</x>
+      <y>410</y>
+      <width>155</width>
+      <height>120</height>
      </rect>
     </property>
-    <property name="cursor">
-     <cursorShape>PointingHandCursor</cursorShape>
-    </property>
-    <property name="contextMenuPolicy">
-     <enum>Qt::ContextMenuPolicy::NoContextMenu</enum>
+    <property name="autoFillBackground">
+     <bool>false</bool>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: &quot;#c2c2c2&quot;;</string>
+     <string notr="true">QFrame#containerControls
+{
+	background-color: black;
+	border-style: solid;
+	border-width: 1px;
+	border-radius: 3px;
+	border-color: white;
+}</string>
     </property>
-    <property name="text">
-     <string>+</string>
+    <property name="frameShape">
+     <enum>QFrame::Shape::StyledPanel</enum>
     </property>
-   </widget>
-   <widget class="QPushButton" name="zoomOut_3">
-    <property name="geometry">
-     <rect>
-      <x>700</x>
-      <y>480</y>
-      <width>21</width>
-      <height>23</height>
-     </rect>
+    <property name="frameShadow">
+     <enum>QFrame::Shadow::Raised</enum>
     </property>
-    <property name="cursor">
-     <cursorShape>PointingHandCursor</cursorShape>
-    </property>
-    <property name="contextMenuPolicy">
-     <enum>Qt::ContextMenuPolicy::NoContextMenu</enum>
-    </property>
-    <property name="styleSheet">
-     <string>background-color: &quot;#c2c2c2&quot;;</string>
-    </property>
-    <property name="text">
-     <string>-</string>
-    </property>
+    <widget class="QPushButton" name="zoomOut">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>90</y>
+       <width>21</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="contextMenuPolicy">
+      <enum>Qt::ContextMenuPolicy::NoContextMenu</enum>
+     </property>
+     <property name="styleSheet">
+      <string>background-color: &quot;#c2c2c2&quot;;</string>
+     </property>
+     <property name="text">
+      <string>-</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="zoomIn">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>55</y>
+       <width>23</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="contextMenuPolicy">
+      <enum>Qt::ContextMenuPolicy::NoContextMenu</enum>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: &quot;#c2c2c2&quot;;</string>
+     </property>
+     <property name="text">
+      <string>+</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Right">
+     <property name="geometry">
+      <rect>
+       <x>94</x>
+       <y>45</y>
+       <width>25</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: &quot;#c2c2c2&quot;;</string>
+     </property>
+     <property name="text">
+      <string>+X</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Up">
+     <property name="geometry">
+      <rect>
+       <x>65</x>
+       <y>15</y>
+       <width>25</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: &quot;#c2c2c2&quot;;</string>
+     </property>
+     <property name="text">
+      <string>+Y</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Left">
+     <property name="geometry">
+      <rect>
+       <x>35</x>
+       <y>45</y>
+       <width>25</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: &quot;#c2c2c2&quot;;</string>
+     </property>
+     <property name="text">
+      <string>-X</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Down">
+     <property name="geometry">
+      <rect>
+       <x>65</x>
+       <y>75</y>
+       <width>25</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: &quot;#c2c2c2&quot;;</string>
+     </property>
+     <property name="text">
+      <string>-Y</string>
+     </property>
+    </widget>
    </widget>
   </widget>
  </widget>

@@ -145,18 +145,52 @@ class Ui_Dialog(object):
 "color: black;")
         self.ValorVeloY.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAsNeeded)
         self.ValorVeloY.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAsNeeded)
-        self.zoomIn = QPushButton(self.background)
-        self.zoomIn.setObjectName(u"zoomIn")
-        self.zoomIn.setGeometry(QRect(700, 450, 21, 23))
-        self.zoomIn.setCursor(QCursor(Qt.PointingHandCursor))
-        self.zoomIn.setContextMenuPolicy(Qt.ContextMenuPolicy.NoContextMenu)
-        self.zoomIn.setStyleSheet(u"background-color: \"#c2c2c2\"; text-align: center;")
-        self.zoomOut = QPushButton(self.background)
+        self.containerControls = QFrame(self.background)
+        self.containerControls.setObjectName(u"containerControls")
+        self.containerControls.setEnabled(True)
+        self.containerControls.setGeometry(QRect(580, 410, 155, 120))
+        self.containerControls.setAutoFillBackground(False)
+        self.containerControls.setStyleSheet(u"QFrame#containerControls\n"
+"{\n"
+"	background-color: black;\n"
+"	border-style: solid;\n"
+"	border-width: 1px;\n"
+"	border-radius: 3px;\n"
+"	border-color: white;\n"
+"}")
+        self.containerControls.setFrameShape(QFrame.Shape.StyledPanel)
+        self.containerControls.setFrameShadow(QFrame.Shadow.Raised)
+        self.zoomOut = QPushButton(self.containerControls)
         self.zoomOut.setObjectName(u"zoomOut")
-        self.zoomOut.setGeometry(QRect(700, 480, 21, 23))
+        self.zoomOut.setGeometry(QRect(130, 90, 21, 23))
         self.zoomOut.setCursor(QCursor(Qt.PointingHandCursor))
         self.zoomOut.setContextMenuPolicy(Qt.ContextMenuPolicy.NoContextMenu)
-        self.zoomOut.setStyleSheet(u"background-color: \"#c2c2c2\"; text-align: center;")
+        self.zoomIn = QPushButton(self.containerControls)
+        self.zoomIn.setObjectName(u"zoomIn")
+        self.zoomIn.setGeometry(QRect(130, 55, 23, 23))
+        self.zoomIn.setCursor(QCursor(Qt.PointingHandCursor))
+        self.zoomIn.setContextMenuPolicy(Qt.ContextMenuPolicy.NoContextMenu)
+        self.zoomIn.setStyleSheet(u"background-color: \"#c2c2c2\";")
+        self.Right = QPushButton(self.containerControls)
+        self.Right.setObjectName(u"Right")
+        self.Right.setGeometry(QRect(94, 45, 25, 25))
+        self.Right.setAutoFillBackground(False)
+        self.Right.setStyleSheet(u"background-color: \"#c2c2c2\";")
+        self.Up = QPushButton(self.containerControls)
+        self.Up.setObjectName(u"Up")
+        self.Up.setGeometry(QRect(65, 15, 25, 25))
+        self.Up.setAutoFillBackground(False)
+        self.Up.setStyleSheet(u"background-color: \"#c2c2c2\";")
+        self.Left = QPushButton(self.containerControls)
+        self.Left.setObjectName(u"Left")
+        self.Left.setGeometry(QRect(35, 45, 25, 25))
+        self.Left.setAutoFillBackground(False)
+        self.Left.setStyleSheet(u"background-color: \"#c2c2c2\";")
+        self.Down = QPushButton(self.containerControls)
+        self.Down.setObjectName(u"Down")
+        self.Down.setGeometry(QRect(65, 75, 25, 25))
+        self.Down.setAutoFillBackground(False)
+        self.Down.setStyleSheet(u"background-color: \"#c2c2c2\";")
 
 
         formDict = {
@@ -183,9 +217,13 @@ class Ui_Dialog(object):
         self.VelocidadeX.setText(QCoreApplication.translate("Dialog", u"VelocidadeX:", None))
         self.VelocidadeY.setText(QCoreApplication.translate("Dialog", u"VelocidadeY:", None))
         self.criarPlaneta.setText(QCoreApplication.translate("Dialog", u"Criar Planeta", None))
-        self.zoomIn.setText(QCoreApplication.translate("Dialog", u"+", None))
         self.zoomOut.setStyleSheet(QCoreApplication.translate("Dialog", u"background-color: \"#c2c2c2\";", None))
         self.zoomOut.setText(QCoreApplication.translate("Dialog", u"-", None))
+        self.zoomIn.setText(QCoreApplication.translate("Dialog", u"+", None))
+        self.Right.setText(QCoreApplication.translate("Dialog", u"+X", None))
+        self.Up.setText(QCoreApplication.translate("Dialog", u"+Y", None))
+        self.Left.setText(QCoreApplication.translate("Dialog", u"-X", None))
+        self.Down.setText(QCoreApplication.translate("Dialog", u"-Y", None))
     # retranslateUi
 
     def criarPlanet(self, formDict):
