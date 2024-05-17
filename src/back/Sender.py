@@ -1,3 +1,4 @@
+#This will be what will send the data to mailbox
 # Exemplo de BackEnd da nossa arquitetura
 # Esse programa pode ser desrito em um 
 # loop de 3 ações
@@ -19,13 +20,13 @@ from random import randint
 #    "atributo1": "valor1",
 #    "atributo2": 2
 # }
-class Mailer:
+class Sender:
     def __init__(self):
         self.currentId = 0
     
     def save(self, obj):
         while True:
-            with open('../bridge.txt','r+', encoding='utf-8' ) as file:
+            with open('../mailbox','r+', encoding='utf-8' ) as file:
                 if file.read(1) == '0':
                     file.close()
                     continue
@@ -39,7 +40,7 @@ if __name__ == '__main__':
     data = {
         "a":1
     }
-    mailer = Mailer()
+    mailer = Sender()
     while True:
         a = randint(0,100)
         data['a'] = a
