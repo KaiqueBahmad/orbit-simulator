@@ -23,7 +23,7 @@ def allPeersList(source:list) -> list:
 #G stands for the gravitional constant, bigger it's more powerful gravity will be
 def forceBetween(b1:Body, b2:Body, G:float=1) -> list :
     distance:float = ( (b1.x - b2.x)**2 + (b1.y - b2.y)**2 )**(1/2)
-    sin:float = b2.y - b1.y / distance
+    sin:float = (b2.y - b1.y) / distance
     cos:float = (1-sin**2)**(1/2)
     #Calculates the force between the bodies
     force:float =  (b1.mass * b2.mass) / distance**2
