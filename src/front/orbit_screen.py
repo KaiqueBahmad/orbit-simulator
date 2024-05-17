@@ -226,8 +226,14 @@ class Ui_Dialog(object):
         self.Down.setText(QCoreApplication.translate("Dialog", u"-Y", None))
     # retranslateUi
 
-    def criarPlanet(self, formDict):
+        self.zoomOut.clicked.connect(lambda: self.mexerTela("zoomOut"))
+        self.zoomIn.clicked.connect(lambda: self.mexerTela("zoomIn"))
+        self.Right.clicked.connect(lambda: self.mexerTela("Right"))
+        self.Up.clicked.connect(lambda: self.mexerTela("Up"))
+        self.Left.clicked.connect(lambda: self.mexerTela("Left"))
+        self.Down.clicked.connect(lambda: self.mexerTela("Down"))
 
+    def criarPlanet(self, formDict):
         dadosDoPlaneta = {x:formDict[x].toPlainText() for x in formDict}
         if(dadosDoPlaneta['X'].isnumeric() and dadosDoPlaneta['Y'].isnumeric() and dadosDoPlaneta['Massa'].isnumeric() and dadosDoPlaneta['Vx'].isnumeric() and dadosDoPlaneta['Vy'].isnumeric()):
                 #passar informação para o bridge
@@ -237,4 +243,16 @@ class Ui_Dialog(object):
              dadosDoPlaneta = []
              print(dadosDoPlaneta)
 
-        
+    def mexerTela(self, movimento):
+        if movimento == "zoomOut":
+             print("zoomOut")
+        elif movimento == "zoomIn":
+             print("zoomIn")
+        elif movimento == "Right":
+             print("Right")
+        elif movimento == "Up":
+             print("Up")
+        elif movimento == "Left":
+             print("Left")
+        elif movimento == "Down":
+             print("Down")
