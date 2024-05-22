@@ -9,7 +9,9 @@ import json
 from random import randint
 from GravitationalSystem import GravitationalSystem
 from Body import Body
-from time import time
+from time import time, sleep
+from threading import Thread
+
 # Mailer: a ideia é que ele é o "mensageiro" que entrega as mensagens
 # para a bridge, e ele segue um protocolo simples
 # 1° Linha é um 0 ou 1, que significa respectivamente Lido / Não Lido
@@ -51,21 +53,51 @@ class Sender:
         #         break
 
 
+    def genSecond(self, store=False, where=None):
+        secondFrames = []
+        framesGenerated = 0
+        framesToGenerate = int(1/self.gravitySystem.tickLength)
+        print(framesToGenerate)
+        for i in range(framesToGenerate):
+            if i/framesToGenerate > (framesGenerated + 1)/self.framerate:
+                framesGenerated += 1
+                self.gravitySystem.nextTick()
+                secondFrames.append(self.gravitySystem.createMapPosition())
+                continue
+            self.gravitySystem.nextTick()
+        secondFrames.append(self.gravitySystem.createMapPosition())
+        if store:
+            where[0] = secondFrames
+        else:
+            return secondFrames
+
+    def genSecondOnAnotherThread(self, response):
+        Thread(self.genSecond, kwargs={"store":True,"where":response}).start()
+
 
     def loop(self):
+        actualFrames = []
+        futureFrames = [False] 
+        self.genSecondOnAnotherThread(futureFrames)
+        secondsPerFrame = 1 / self.framerate
         while True:
-            self.gravitySystem.nextTick()
-            if self.firstBit() == "0":
-                pass
-            else:
-                status = self.firstBit()
-                if status == "1":
-                    self.save(self.gravitySystem.createMapPosition())
-                elif status == "2":
-                    # Função para ler a 3° linha do arquivo verificar se dá pra montar um planeta
-                    # montar o planeta e adicionar no sistema
-                    # self.gravitySystem.addBody(None)
+            while not futureFrames[0]:
+                continue    
+            actualFrames = futureFrames[0]
+            self.genSecondOnAnotherThread(futureFrames)
+            for i in range(self.framerate):
+                sleep(secondsPerFrame)
+                if self.firstBit() == "0":
                     pass
+                else:
+                    status = self.firstBit()
+                    if status == "1":
+                        self.save(self.gravitySystem.createMapPosition())
+                    elif status == "2":
+                        # Função para ler a 3° linha do arquivo verificar se dá pra montar um planeta
+                        # montar o planeta e adicionar no sistema
+                        # self.gravitySystem.addBody(None)
+                        pass
     
 
 
@@ -76,11 +108,15 @@ class Sender:
     def benchmark(self):
         t1 = time()
         qtd = 100000
+        print(self.gravitySystem.createMapPosition())
         for i in range(qtd):
             self.gravitySystem.nextTick()
             self.gravitySystem.createMapPosition()
         t2 = time()
         delta = t2-t1
+        print("--------------------------")
+        print(self.gravitySystem.createMapPosition())
+
         print(f"Benchmark levou {delta:.2} segundos")
         print(f"Gerando {int(qtd/delta)} ticks/s")
 
@@ -90,7 +126,9 @@ if __name__ == '__main__':
     system.addBody(Body(2000, 150, -200, 35, 15))
     system.addBody(Body(10000, 0, 0, 10, 10))
     sender = Sender(system)
-    sender.firstBit()
+    [print(x) for x in sender.genSecond()]
+    print(len(sender.genSecond()))
+    # sender.firstBit()
     # sender.setFramerate(30)
     # sender.benchmark()
     # frames = []
