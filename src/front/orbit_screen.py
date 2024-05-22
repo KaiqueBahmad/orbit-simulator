@@ -193,6 +193,7 @@ class Ui_Dialog(object):
         self.Down.setAutoFillBackground(False)
         self.Down.setStyleSheet(u"background-color: \"#c2c2c2\";")
 
+        
 
         formDict = {
             "X": self.valorX,
@@ -238,7 +239,6 @@ class Ui_Dialog(object):
         dadosDoPlaneta = {x:formDict[x].toPlainText() for x in formDict}
         if(dadosDoPlaneta['X'].isnumeric() and dadosDoPlaneta['Y'].isnumeric() and dadosDoPlaneta['Massa'].isnumeric() and dadosDoPlaneta['Vx'].isnumeric() and dadosDoPlaneta['Vy'].isnumeric()):
                 #passar informação para o bridge
-                
                 print(dadosDoPlaneta)
                 receber.Receiver.storePlanet(receber.Receiver,dadosDoPlaneta)
                 dadosDoPlaneta = []
@@ -249,14 +249,15 @@ class Ui_Dialog(object):
 
     def mexerTela(self, movimento):
         if movimento == "zoomOut":
-             print("zoomOut")
+                print("zoomOut")
         elif movimento == "zoomIn":
-             print("zoomIn")
+                print("zoomIn")
         elif movimento == "Right":
-             print("Right")
+                print("Right")
         elif movimento == "Up":
-             print("Up")
+                print("Up")
         elif movimento == "Left":
-             print("Left")
+                print("Left")
         elif movimento == "Down":
-             print("Down")
+                print("Down")
+                

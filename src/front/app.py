@@ -1,7 +1,8 @@
 import sys
 import Receiver
+import orbit_screen
 
-from PySide6.QtCore import QSize, Qt, QThreadPool
+from PySide6.QtCore import QSize, Qt, QThreadPool, QEvent
 from PySide6.QtGui import QMouseEvent
 from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton
 from orbit_screen import Ui_Dialog
@@ -21,3 +22,4 @@ app = QApplication(sys.argv)
 window = MainWindow()
 window.show()
 app.exec()
+#app.aboutToQuit.connect(Ui_Dialog.closeThreads)
