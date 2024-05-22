@@ -77,18 +77,18 @@ class Sender:
 
     def loop(self):
         actualFrames = []
-        futureFrames = [False] 
-        self.genSecondOnAnotherThread(futureFrames)
+        futureFrames = self.genSecond()
         secondsPerFrame = 1 / self.framerate
         while True:
             while not futureFrames[0]:
                 continue    
             actualFrames = futureFrames[0]
+            futureFrames = [False]
             self.genSecondOnAnotherThread(futureFrames)
             for i in range(self.framerate):
                 sleep(secondsPerFrame)
                 if self.firstBit() == "0":
-                    pass
+                    continue
                 else:
                     status = self.firstBit()
                     if status == "1":
