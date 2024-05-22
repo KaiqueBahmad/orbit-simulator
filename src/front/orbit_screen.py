@@ -16,6 +16,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QDialog, QFrame, QLabel,
     QPushButton, QSizePolicy, QTextEdit, QWidget)
+import Receiver
 import resources.resources_rc as resources_rc
 
 class Ui_Dialog(object):
@@ -237,8 +238,11 @@ class Ui_Dialog(object):
         dadosDoPlaneta = {x:formDict[x].toPlainText() for x in formDict}
         if(dadosDoPlaneta['X'].isnumeric() and dadosDoPlaneta['Y'].isnumeric() and dadosDoPlaneta['Massa'].isnumeric() and dadosDoPlaneta['Vx'].isnumeric() and dadosDoPlaneta['Vy'].isnumeric()):
                 #passar informação para o bridge
+                
                 print(dadosDoPlaneta)
+                Receiver.Receiver.storePlanet(dadosDoPlaneta)
                 dadosDoPlaneta = []
+                
         else:
              dadosDoPlaneta = []
              print(dadosDoPlaneta)
