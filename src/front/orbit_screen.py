@@ -16,7 +16,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QDialog, QFrame, QLabel,
     QPushButton, QSizePolicy, QTextEdit, QWidget)
-import Receiver
+import Receiver as receber
 import resources.resources_rc as resources_rc
 
 class Ui_Dialog(object):
@@ -240,7 +240,7 @@ class Ui_Dialog(object):
                 #passar informação para o bridge
                 
                 print(dadosDoPlaneta)
-                Receiver.Receiver.storePlanet(dadosDoPlaneta)
+                receber.Receiver.storePlanet(receber.Receiver,dadosDoPlaneta)
                 dadosDoPlaneta = []
                 
         else:
