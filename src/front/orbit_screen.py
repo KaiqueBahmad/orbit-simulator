@@ -232,16 +232,22 @@ class Ui_Dialog(object):
         self.Left.clicked.connect(lambda: self.mexerTela("Left"))
         self.Down.clicked.connect(lambda: self.mexerTela("Down"))
 
+        self.planetas = []
+        self.cont = 0
+
     def criarPlanet(self, formDict, Dialog):
         try:
             dadosDoPlaneta = {x:int(formDict[x].toPlainText()) for x in formDict}
         except Exception as ex:
             return
         novoPlaneta = QLabel(self.background)
-        novoPlaneta.setObjectName(u"planeta1")
-        novoPlaneta.setGeometry(QRect(30, 30, 30, 30))
-        novoPlaneta.setStyleSheet(u"background-color: #ffffff")
+        novoPlaneta.setObjectName(u"planeta"+str(self.cont))
+        novoPlaneta.setGeometry(QRect(int(dadosDoPlaneta['X']), int(dadosDoPlaneta['Y']), 30, 30))
+        novoPlaneta.setStyleSheet(u"background-image: 'resources/planeta.png'")
         novoPlaneta.show()
+        self.cont+=1
+        self.planetas.append(novoPlaneta)
+        print(self.planetas)
 
     def mexerTela(self, movimento):
         if movimento == "zoomOut":
