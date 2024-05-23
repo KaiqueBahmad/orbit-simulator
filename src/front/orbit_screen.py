@@ -16,7 +16,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QDialog, QFrame, QLabel,
     QPushButton, QSizePolicy, QTextEdit, QWidget)
-import resources.resources_rc as resources_rc
+import resources.resources as resources_rc
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
@@ -30,7 +30,7 @@ class Ui_Dialog(object):
         self.background.setStyleSheet(u"QFrame#background {\n"
 "	background-repeat: no-repet;\n"
 "	background-position: center;\n"
-"	border-image: url(:/back-sky/back-sky.jpg) 0 0 0 0 stretch stretch;\n"
+"	border-image: url(:/resources/back-sky.jpg) 0 0 0 0 stretch stretch;\n"
 "}")
         self.background.setFrameShape(QFrame.Shape.NoFrame)
         self.containerInputs = QFrame(self.background)

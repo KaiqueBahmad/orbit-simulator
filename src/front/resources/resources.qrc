@@ -1,5 +1,6 @@
 <RCC>
-  <qresource prefix="back-sky">
+  <qresource prefix="resources">
     <file>back-sky.jpg</file>
+    <file>planeta.png</file>
   </qresource>
 </RCC>
