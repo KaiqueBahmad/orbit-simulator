@@ -57,7 +57,6 @@ class Sender:
         secondFrames = []
         framesGenerated = 0
         framesToGenerate = int(1/self.gravitySystem.tickLength)
-        print(framesToGenerate)
         for i in range(framesToGenerate):
             if i/framesToGenerate > (framesGenerated + 1)/self.framerate:
                 framesGenerated += 1
@@ -72,7 +71,8 @@ class Sender:
             return secondFrames
 
     def genSecondOnAnotherThread(self, response):
-        Thread(self.genSecond, kwargs={"store":True,"where":response}).start()
+        thread = Thread(target=self.genSecond, kwargs={"store":True,"where":response})
+        thread.start()
 
 
     def loop(self):
@@ -126,11 +126,5 @@ if __name__ == '__main__':
     system.addBody(Body(2000, 150, -200, 35, 15))
     system.addBody(Body(10000, 0, 0, 10, 10))
     sender = Sender(system)
-    [print(x) for x in sender.genSecond()]
-    print(len(sender.genSecond()))
-    # sender.firstBit()
-    # sender.setFramerate(30)
-    # sender.benchmark()
-    # frames = []
-    # sender.loop()
+    sender.loop()
 
