@@ -192,7 +192,6 @@ class Ui_Dialog(object):
         self.Down.setAutoFillBackground(False)
         self.Down.setStyleSheet(u"background-color: \"#c2c2c2\";")
 
-
         formDict = {
             "X": self.valorX,
             "Y": self.valorY,
@@ -201,10 +200,10 @@ class Ui_Dialog(object):
             "Vy": self.ValorVeloY
         }
 
-        self.criarPlaneta.clicked.connect(lambda: self.criarPlanet(formDict))
+        self.criarPlaneta.clicked.connect(lambda: self.criarPlanet(formDict, Dialog))
 
         self.retranslateUi(Dialog)
-
+        print(hash(self))
 
         QMetaObject.connectSlotsByName(Dialog)
     # setupUi
@@ -233,11 +232,15 @@ class Ui_Dialog(object):
         self.Left.clicked.connect(lambda: self.mexerTela("Left"))
         self.Down.clicked.connect(lambda: self.mexerTela("Down"))
 
-    def criarPlanet(self, formDict):
+    def criarPlanet(self, formDict, Dialog):
         dadosDoPlaneta = {x:formDict[x].toPlainText() for x in formDict}
         if(dadosDoPlaneta['X'].isnumeric() and dadosDoPlaneta['Y'].isnumeric() and dadosDoPlaneta['Massa'].isnumeric() and dadosDoPlaneta['Vx'].isnumeric() and dadosDoPlaneta['Vy'].isnumeric()):
                 #passar informação para o bridge
-                print(dadosDoPlaneta)
+                planeta1 = QLabel(self.background)
+                planeta1.setObjectName(u"planeta1")
+                planeta1.setGeometry(QRect(30, 30, 30, 30))
+                planeta1.setStyleSheet(u"background-color: #ffffff")
+                planeta1.show()
                 dadosDoPlaneta = []
         else:
              dadosDoPlaneta = []
