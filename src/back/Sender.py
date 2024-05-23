@@ -69,36 +69,34 @@ class Sender:
             where[0] = secondFrames
         else:
             return secondFrames
-
-    def genSecondOnAnotherThread(self, response):
-        thread = Thread(target=self.genSecond, kwargs={"store":True,"where":response})
-        thread.start()
-
-
+        
     def loop(self):
         actualFrames = []
         futureFrames = self.genSecond()
         secondsPerFrame = 1 / self.framerate
+        thread = Thread(target=lambda :None)
+        thread.start()
         while True:
-            while not futureFrames[0]:
-                continue    
+            thread.join()
             actualFrames = futureFrames[0]
             futureFrames = [False]
-            self.genSecondOnAnotherThread(futureFrames)
+            thread = Thread(target=self.genSecond, kwargs={"store":True,"where":futureFrames})
+            thread.start()
             for i in range(self.framerate):
-                sleep(secondsPerFrame)
+                
                 if self.firstBit() == "0":
-                    continue
+                    pass
                 else:
                     status = self.firstBit()
                     if status == "1":
-                        self.save(self.gravitySystem.createMapPosition())
+                        self.save(actualFrames[i])
                     elif status == "2":
                         # Função para ler a 3° linha do arquivo verificar se dá pra montar um planeta
                         # montar o planeta e adicionar no sistema
                         # self.gravitySystem.addBody(None)
                         pass
-    
+                sleep(secondsPerFrame)
+                
 
 
     def firstBit(self):
