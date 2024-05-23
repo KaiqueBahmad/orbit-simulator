@@ -233,18 +233,15 @@ class Ui_Dialog(object):
         self.Down.clicked.connect(lambda: self.mexerTela("Down"))
 
     def criarPlanet(self, formDict, Dialog):
-        dadosDoPlaneta = {x:formDict[x].toPlainText() for x in formDict}
-        if(dadosDoPlaneta['X'].isnumeric() and dadosDoPlaneta['Y'].isnumeric() and dadosDoPlaneta['Massa'].isnumeric() and dadosDoPlaneta['Vx'].isnumeric() and dadosDoPlaneta['Vy'].isnumeric()):
-                #passar informação para o bridge
-                planeta1 = QLabel(self.background)
-                planeta1.setObjectName(u"planeta1")
-                planeta1.setGeometry(QRect(30, 30, 30, 30))
-                planeta1.setStyleSheet(u"background-color: #ffffff")
-                planeta1.show()
-                dadosDoPlaneta = []
-        else:
-             dadosDoPlaneta = []
-             print(dadosDoPlaneta)
+        try:
+            dadosDoPlaneta = {x:int(formDict[x].toPlainText()) for x in formDict}
+        except Exception as ex:
+            return
+        novoPlaneta = QLabel(self.background)
+        novoPlaneta.setObjectName(u"planeta1")
+        novoPlaneta.setGeometry(QRect(30, 30, 30, 30))
+        novoPlaneta.setStyleSheet(u"background-color: #ffffff")
+        novoPlaneta.show()
 
     def mexerTela(self, movimento):
         if movimento == "zoomOut":
