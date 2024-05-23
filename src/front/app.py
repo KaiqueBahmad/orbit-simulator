@@ -10,13 +10,7 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.setWindowTitle("Orbit Simulator")
         self.ui = Ui_Dialog()
-        self.ui.setupUi(self)
-""" 
-    def mousePressEvent(self, event: QMouseEvent):
-        if QMouseEvent == Qt.MouseButton.LeftButton:
-            float  cordIni = QMouseEvent.globalPosition """
-        
-        
+        self.ui.setupUi(self)        
 
 app = QApplication(sys.argv)
 window = MainWindow()
