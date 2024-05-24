@@ -4,7 +4,7 @@ import json
 import os
 import time
 from PySide6.QtCore import QRunnable, Slot, QThreadPool
-
+from time import sleep
 
 clear = ""
 if os.name == "posix":
@@ -15,22 +15,21 @@ if os.name == "nt":
 # Fica lendo o arquivo em loop, quando ele mudar, limpa a tela e exibe o arquivo
 previous_content = []
 planets = []
-currentId = '0'
+currentId = "0"
 class Receiver(QRunnable):
     
     @Slot()    
     def run(self):
         loop = True
         while loop:
-            with open('src/mailbox','r') as file:
-                
+            with open('src/mailbox','r+') as file:
+                file.seek(0)
                 content = file.readlines()
-                
                 self.boxStatus = content[0].strip()
-                print(self.boxStatus)
+                
                 if self.boxStatus == '0':
                     #os.system(clear)
-                    currentId = content[1].strip
+                    #currentId = content[1].strip + 1
                     
                     print(content)
                     data = []
@@ -38,17 +37,22 @@ class Receiver(QRunnable):
                     dataDict = json.loads(data)
                     for element in dataDict:
                         planets.append(element)
-                    content[0] = '1\n'
+                        
+                    content[0] = '1'
                     print(content)
-                    with open('src/mailbox', 'w') as file:
-                        file.writelines(content)
+                    file.seek(0)
+                    file.write("\n".join(content))
                 continue
-                
-                
+
+    def storePlanet(self,obj):
+        planets.append(obj)
+        self.boxStatus = '0'
+       # with open('src/mailbox','w') as file:
+        #    file.write(f"0\n{currentId}\n{json.dumps(planets)}\n")
+
                     
                     
                 
             
        
             
-
