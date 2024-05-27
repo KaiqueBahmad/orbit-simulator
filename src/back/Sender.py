@@ -100,8 +100,11 @@ class Sender:
 
 
     def firstBit(self):
-        with open("../mailbox", 'r', encoding="utf-8") as file:
-            return file.read(1)
+        try:
+            with open("../mailbox", 'r', encoding="utf-8") as file:
+                return file.read(1)
+        except:
+            return 0
 
     def benchmark(self):
         t1 = time()
