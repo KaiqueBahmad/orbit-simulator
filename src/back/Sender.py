@@ -11,7 +11,7 @@ from GravitationalSystem import GravitationalSystem
 from Body import Body
 from time import time, sleep
 from threading import Thread
-
+from utils import firstBit
 # Mailer: a ideia é que ele é o "mensageiro" que entrega as mensagens
 # para a bridge, e ele segue um protocolo simples
 # 1° Linha é um 0 ou 1, que significa respectivamente Lido / Não Lido
@@ -84,10 +84,10 @@ class Sender:
             thread.start()
             for i in range(self.framerate):
                 
-                if self.firstBit() == "0":
+                if firstBit() == "0":
                     pass
                 else:
-                    status = self.firstBit()
+                    status = firstBit()
                     if status == "1":
                         self.save(actualFrames[i])
                     elif status == "2":
@@ -96,15 +96,6 @@ class Sender:
                         # self.gravitySystem.addBody(None)
                         pass
                 sleep(secondsPerFrame)
-                
-
-
-    def firstBit(self):
-        try:
-            with open("../mailbox", 'r', encoding="utf-8") as file:
-                return file.read(1)
-        except:
-            return 0
 
     def benchmark(self):
         t1 = time()
