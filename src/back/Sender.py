@@ -118,5 +118,5 @@ if __name__ == '__main__':
     system.addBody(Body(2000, 150, -200, 35, 15))
     system.addBody(Body(10000, 0, 0, 10, 10))
     sender = Sender(system)
-    sender.loop()
-
+    #sender.loop()
+    print(firstBit())

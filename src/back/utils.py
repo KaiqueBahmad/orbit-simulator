@@ -40,15 +40,12 @@ def forceBetween(b1:Body, b2:Body, G:float=1) -> list :
         fy = -fy
     return [fx, fy]        # The return is the decomposed forces
 
-def firstBit(self):
+def firstBit():
         try:
-            with open("../mailbox", 'r', encoding="utf-8") as file:
+            with open("src/mailbox", 'r', encoding="utf-8") as file:
                 return file.read(1)
         except:
             return 0
-
-
-
 
 if __name__ == "__main__":
     print(allPeersList([1,2]))
