@@ -6,42 +6,52 @@ import time
 from PySide6.QtCore import QRunnable, Slot, QThreadPool
 from time import sleep
 
-clear = ""
-if os.name == "posix":
-    clear = 'clear'
-if os.name == "nt":
-    clear = 'cls'
-
 # Fica lendo o arquivo em loop, quando ele mudar, limpa a tela e exibe o arquivo
-previous_content = []
-planets = []
-currentId = "0"
 class Receiver(QRunnable):
     
-    @Slot()    
+    def __init__(self, main_screen):
+        self.main_screen = main_screen
+        self.planets = []
+        
     def run(self):
         loop = True
         while loop:
+            print(self.firstBit())
             if self.firstBit() == '0':
-                data = []
                 with open('src/mailbox','r+', encoding='utf-8') as file:
                     file.seek(0)
-                    content = file.readlines()
-                    data = content[2]
-                    dataDict = json.loads(data)
-                    for element in dataDict:
-                        planets.append(element)
-                    file.seek(0)
-                    file.write("1")
+                    #content = file.readlines()
+                    #data = content[2]
+                    #iwrote = False
+                    #try:
+                    #dataDict = json.loads(data)
+                    #replacePlanetsOnScreen(data)
+                    print(self.main_screen.planets_queue)
+                    if len(self.main_screen.planets_queue) > 0:
+                        new_planets_string = json.dumps(self.main_screen.planets_queue)
+                        file.seek(0)
+                        file.write(f"2\n\n{new_planets_string}")
+                        self.main_screen.planets_queue = []
+                    else:
+                        file.seek(0)
+                        file.write("1")
+                    #except Exception as exc:
+                    #print(exc)
+                    #if not iwrote:
+                    #    file.seek(0)
+                    #    file.write("1")
 
+    def replacePlanetsOnScreen(planetsData):
+        pass
     def firstBit(self):
         try:
-            with open("../mailbox", 'r', encoding="utf-8") as file:
+            with open("src/mailbox", 'r', encoding="utf-8") as file:
                 return file.read(1)
-        except:
+        except Exception as exc:
             return 1
     
     def storePlanet(self,obj):
-        planets.append(obj)
-        self.boxStatus = '0'            
+        self.planets.append(obj)
+        self.boxStatus = '0'  
+        print(self.planets)
             

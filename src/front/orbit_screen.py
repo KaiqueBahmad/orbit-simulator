@@ -16,7 +16,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QDialog, QFrame, QLabel,
     QPushButton, QSizePolicy, QTextEdit, QWidget)
-import Receiver as receber
+from Receiver import Receiver
 import resources.resources_rc as resources_rc
 
 class Ui_Dialog(object):
@@ -192,9 +192,7 @@ class Ui_Dialog(object):
         self.Down.setGeometry(QRect(41, 80, 25, 25))
         self.Down.setAutoFillBackground(False)
         self.Down.setStyleSheet(u"background-color: \"#c2c2c2\";")
-
         
-
         formDict = {
             "X": self.valorX,
             "Y": self.valorY,
@@ -202,15 +200,12 @@ class Ui_Dialog(object):
             "Vx": self.ValorVeloX,
             "Vy": self.ValorVeloY
         }
-
+        self.planets_queue = []
         self.criarPlaneta.clicked.connect(lambda: self.criarPlanet(formDict))
-
         self.retranslateUi(Dialog)
-
-
         QMetaObject.connectSlotsByName(Dialog)
+    
     # setupUi
-
     def retranslateUi(self, Dialog):
         Dialog.setWindowTitle(QCoreApplication.translate("Dialog", u"Dialog", None))
         self.X.setText(QCoreApplication.translate("Dialog", u"X:", None))
@@ -237,15 +232,10 @@ class Ui_Dialog(object):
 
     def criarPlanet(self, formDict):
         dadosDoPlaneta = {x:formDict[x].toPlainText() for x in formDict}
-        if(dadosDoPlaneta['X'].isnumeric() and dadosDoPlaneta['Y'].isnumeric() and dadosDoPlaneta['Massa'].isnumeric() and dadosDoPlaneta['Vx'].isnumeric() and dadosDoPlaneta['Vy'].isnumeric()):
-                #passar informação para o bridge
-                print(dadosDoPlaneta)
-                receber.Receiver.storePlanet(receber.Receiver,dadosDoPlaneta)
-                dadosDoPlaneta = []
-                
-        else:
-             dadosDoPlaneta = []
-             print(dadosDoPlaneta)
+        for i in dadosDoPlaneta:
+            if not dadosDoPlaneta[i].isnumeric():
+                return
+        self.planets_queue.append(dadosDoPlaneta)
 
     def mexerTela(self, movimento):
         if movimento == "zoomOut":
