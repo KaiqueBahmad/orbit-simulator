@@ -7,7 +7,7 @@ from PySide6.QtCore import QRunnable, Slot, QThreadPool
 from time import sleep
 
 # Fica lendo o arquivo em loop, quando ele mudar, limpa a tela e exibe o arquivo
-class Receiver(QRunnable):
+class Receiver():
     
     def __init__(self, main_screen):
         self.main_screen = main_screen
