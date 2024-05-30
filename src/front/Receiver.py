@@ -20,12 +20,14 @@ class Receiver():
             if self.firstBit() == '0':
                 with open('src/mailbox','r+', encoding='utf-8') as file:
                     file.seek(0)
-                    #content = file.readlines()
-                    #data = content[2]
-                    #iwrote = False
-                    #try:
-                    #dataDict = json.loads(data)
-                    #replacePlanetsOnScreen(data)
+                    content = file.readlines()
+                    if len(content) >= 3:
+                        data = content[2]
+                    else:
+                        data = "[]"
+                    iwrote = False
+                    dataDict = json.loads(data)
+                    replacePlanetsOnScreen(data)
                     print(self.main_screen.planets_queue)
                     if len(self.main_screen.planets_queue) > 0:
                         new_planets_string = json.dumps(self.main_screen.planets_queue)
@@ -35,11 +37,6 @@ class Receiver():
                     else:
                         file.seek(0)
                         file.write("1")
-                    #except Exception as exc:
-                    #print(exc)
-                    #if not iwrote:
-                    #    file.seek(0)
-                    #    file.write("1")
 
     def replacePlanetsOnScreen(planetsData):
         pass
