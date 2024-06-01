@@ -237,17 +237,30 @@ class Ui_Dialog(object):
                 return
         self.planets_queue.append(dadosDoPlaneta)
 
+    def addThose(self, those):
+        for planet in those:
+            self.novoPlaneta = QLabel(self.background)
+            self.novoPlaneta.setGeometry(int(planet["x"]), int(planet["y"]), 30, 30)
+            self.novoPlaneta.setStyleSheet("background-color: white")
+ 
+
     def mexerTela(self, movimento):
         if movimento == "zoomOut":
-                print("zoomOut")
+            print("zoomOut")
         elif movimento == "zoomIn":
-                print("zoomIn")
+            print("zoomIn")
         elif movimento == "Right":
-                print("Right")
+            print("Right")
         elif movimento == "Up":
-                print("Up")
+            self.novoPlaneta = QLabel(self.background)
+            self.novoPlaneta.setObjectName(u"planeta")
+            self.novoPlaneta.setGeometry(30, 30, 30, 30)
+            self.novoPlaneta.setStyleSheet("background-color: white")
+            self.novoPlaneta.show()    
+            print("Up")
         elif movimento == "Left":
-                print("Left")
+            print("Left")
         elif movimento == "Down":
-                print("Down")
-                
+            print(self.background.children())
+            print(self.novoPlaneta)
+            self.novoPlaneta.deleteLater()
