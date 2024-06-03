@@ -1,7 +1,8 @@
 from Body import Body
 import typing
 import math
-
+import json
+from pprint import pprint
 #Exemplo de função para ajudar quem for escrever aqui
 def zero_filled_array(array_size): #Coloque nomes entendíveis nos argumentos
     array = []
@@ -24,6 +25,26 @@ def allPeersList(source:list) -> list:
             retorno.add((element, element_))
     return list(retorno)
 
+def parseStringToBody(string):
+    dados = json.loads(string)
+    retorno = []
+    if type(dados) == list:
+        for i in dados:
+            mass = i["mass"]
+            x = i["x"]
+            y = i["y"]
+            vx = i["vx"]
+            vy = i["vy"]
+            retorno.append(Body(mass, x, y, vx, vy))
+    else:
+        mass = dados["mass"]
+        x = dados["x"]
+        y = dados["y"]
+        vx = dados["vx"]
+        vy = dados["vy"]
+        retorno = Body(mass, x, y, vx, vy)
+    return retorno
+
 #G stands for the gravitional constant, bigger it's more powerful gravity will be
 def forceBetween(b1:Body, b2:Body, G:float=1) -> list :
     distance:float = ( (b1.x - b2.x)**2 + (b1.y - b2.y)**2 )**(1/2)
@@ -42,10 +63,6 @@ def forceBetween(b1:Body, b2:Body, G:float=1) -> list :
 
 
 if __name__ == "__main__":
-    print(allPeersList([1,2]))
-    # b1 = Body(120000000, 0, 0, 0, 0)
-    # b2 = Body(120000, -3, 0, 0,0)
-    # G = 6.6743*10**(-11)
-    # print(forceBetween(b1, b2,G=G))
-
+    toParse = '[{"mass":150, "x":300,"y":500,"vx":100,"vy":200},{"mass":150, "x":300,"y":500,"vx":100,"vy":200}]'
+    pprint(parseStringToBody(toParse))
 
