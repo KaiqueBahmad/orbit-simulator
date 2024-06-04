@@ -2,6 +2,7 @@ from Body import Body
 import typing
 import math
 import json
+from pprint import pprint
 
 def somaLista(a:list,b:list) -> list:
     soma = [a[0]+b[0], a[1]+b[1]]
@@ -56,4 +57,3 @@ if __name__ == "__main__":
     toParse = '[{"mass":150, "x":300,"y":500,"vx":100,"vy":200},{"mass":150, "x":300,"y":500,"vx":100,"vy":200}]'
     pprint(parseStringToBody(toParse))
 
->>>>>>> danilo-receiver
