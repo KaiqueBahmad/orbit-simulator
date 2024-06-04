@@ -1,15 +1,7 @@
 from Body import Body
 import typing
 import math
-
-#Exemplo de função para ajudar quem for escrever aqui
-def zero_filled_array(array_size): #Coloque nomes entendíveis nos argumentos
-    array = []
-    for i in range(array_size):
-        array.append(0)
-    return array #A saída NAO deve ser um print, deve ser sempre um retorno
-            # Use prints apenas para DEBUGAR assim que o código estiver
-            # funcionando, remova os prints!!
+import json
 
 def somaLista(a:list,b:list) -> list:
     soma = [a[0]+b[0], a[1]+b[1]]
@@ -40,12 +32,28 @@ def forceBetween(b1:Body, b2:Body, G:float=1) -> list :
         fy = -fy
     return [fx, fy]        # The return is the decomposed forces
 
+def parseStringToBody(string):
+    dados = json.loads(string)
+    retorno = []
+    if type(dados) == list:
+        for i in dados:
+            mass = i["mass"]
+            x = i["x"]
+            y = i["y"]
+            vx = i["vx"]
+            vy = i["vy"]
+            retorno.append(Body(mass, x, y, vx, vy))
+    else:
+        mass = dados["mass"]
+        x = dados["x"]
+        y = dados["y"]
+        vx = dados["vx"]
+        vy = dados["vy"]
+        retorno = Body(mass, x, y, vx, vy)
+    return retorno
 
 if __name__ == "__main__":
-    print(allPeersList([1,2]))
-    # b1 = Body(120000000, 0, 0, 0, 0)
-    # b2 = Body(120000, -3, 0, 0,0)
-    # G = 6.6743*10**(-11)
-    # print(forceBetween(b1, b2,G=G))
+    toParse = '[{"mass":150, "x":300,"y":500,"vx":100,"vy":200},{"mass":150, "x":300,"y":500,"vx":100,"vy":200}]'
+    pprint(parseStringToBody(toParse))
 
-
+>>>>>>> danilo-receiver
