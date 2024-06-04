@@ -6,13 +6,18 @@ import time
 from PySide6.QtCore import QRunnable, Slot, QThreadPool
 from time import sleep
 from PySide6.QtWidgets import QLabel
-from PySide6.QtCore import DispatchQueue, QEventLoop, QObject
+from PySide6.QtCore import QEventLoop, QObject
+from PySide6.QtCore import Signal, Slot,QThread
 # Fica lendo o arquivo em loop, quando ele mudar, limpa a tela e exibe o arquivo
-class Receiver(QObject):
+class Receiver(QRunnable):
     
+
     def __init__(self, main_screen):
+        super(Receiver, self).__init__()
         self.main_screen = main_screen
-      
+        self.signals = ReceiverSignals()
+        
+    @Slot()
     def run(self):
         loop = True
         while loop:
@@ -29,8 +34,9 @@ class Receiver(QObject):
                         dataDict = json.loads(data)
                     except:
                         continue
-                    self.replacePlanetsOnScreen(dataDict)
-                    print(self.main_screen.planets_queue)
+                    self.signals.addPlanetsSignal.emit(data)
+                    print("evento enviado")
+                    #self.replacePlanetsOnScreen(dataDict)
                     if len(self.main_screen.planets_queue) > 0:
                         new_planets_string = json.dumps(self.main_screen.planets_queue)
                         file.seek(0)
@@ -40,25 +46,7 @@ class Receiver(QObject):
                         file.seek(0)
                         file.write("1")
 
-    def replacePlanetsOnScreen(self, planetsData):
-        self.main_screen.addThose(planetsData)
-        #self.planetsOnScreen = self.planetsIncoming
-        #print(planetsData)
-        #print(type(planetsData))
-        #self.planetsIncoming = [self.mountPlanetInstance(planet) for planet in planetsData]
-        #for i in self.planetsOnScreen:
-        #    i.deleteLater()
-
-    def mountPlanetInstance(self, planet):
-        self.novoPlaneta = QLabel(self.main_screen.background)
-        self.novoPlaneta.setGeometry(int(planet["x"]), int(planet["y"]), 30, 30)
-        self.novoPlaneta.setStyleSheet("background-color: white")
     
-
-#this is how to delete a planet
-#self.novoPlaneta.deleteLater()
-
-
     def firstBit(self):
         try:
             with open("src/mailbox", 'r', encoding="utf-8") as file:
@@ -70,4 +58,10 @@ class Receiver(QObject):
         self.planets.append(obj)
         self.boxStatus = '0'  
         print(self.planets)
-            
+
+
+class ReceiverSignals(QObject):
+    addPlanetsSignal = Signal(str)
+    
+
+

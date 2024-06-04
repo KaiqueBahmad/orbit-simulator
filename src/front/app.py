@@ -13,9 +13,9 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("Orbit Simulator")
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
-        receiverInstance = Receiver(self.ui)
-        thread = threading.Thread(target=receiverInstance.run)
-        thread.start()
+        #receiverInstance = Receiver(self.ui)
+        #thread = threading.Thread(target=receiverInstance.run)
+        #thread.start()
         #self.threadpool = QThreadPool()  
         #self.threadpool.start(receiverThread.run)      
         

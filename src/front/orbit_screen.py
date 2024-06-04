@@ -8,7 +8,7 @@
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
-    QMetaObject, QObject, QPoint, QRect,
+    QMetaObject, QThreadPool,QObject, QPoint, QRect,
     QSize, QTime, QUrl, Qt)
 from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
@@ -18,7 +18,7 @@ from PySide6.QtWidgets import (QApplication, QDialog, QFrame, QLabel,
     QPushButton, QSizePolicy, QTextEdit, QWidget)
 from Receiver import Receiver
 import resources.resources_rc as resources_rc
-
+import json
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         if not Dialog.objectName():
@@ -201,10 +201,16 @@ class Ui_Dialog(object):
             "Vy": self.ValorVeloY
         }
         self.planets_queue = []
+        receiverInstance = Receiver(self)
+        self.planetsOnScreen = []
+        self.planetsIncoming = []
+        receiverInstance.signals.addPlanetsSignal.connect(self.handlePlanetsUpdate)
+        
         self.criarPlaneta.clicked.connect(lambda: self.criarPlanet(formDict))
         self.retranslateUi(Dialog)
         QMetaObject.connectSlotsByName(Dialog)
-    
+        self.threadpool = QThreadPool()
+        self.threadpool.start(receiverInstance)
     # setupUi
     def retranslateUi(self, Dialog):
         Dialog.setWindowTitle(QCoreApplication.translate("Dialog", u"Dialog", None))
@@ -229,6 +235,14 @@ class Ui_Dialog(object):
         self.Up.clicked.connect(lambda: self.mexerTela("Up"))
         self.Left.clicked.connect(lambda: self.mexerTela("Left"))
         self.Down.clicked.connect(lambda: self.mexerTela("Down"))
+    
+    def handlePlanetsUpdate(self, planets_str):
+        print("recebi o evento")
+        planetsParsed = json.loads(planets_str)
+        self.planetsIncoming = [self.mountPlanetInstance(x) for x in planetsParsed]
+        for i in self.planetsOnScreen:
+            i.deleteLater()
+        self.planetsOnScreen = self.planetsIncoming
 
     def criarPlanet(self, formDict):
         dadosDoPlaneta = {x:formDict[x].toPlainText() for x in formDict}
@@ -237,12 +251,23 @@ class Ui_Dialog(object):
                 return
         self.planets_queue.append(dadosDoPlaneta)
 
-    def addThose(self, those):
-        for planet in those:
-            self.novoPlaneta = QLabel(self.background)
-            self.novoPlaneta.setGeometry(int(planet["x"]), int(planet["y"]), 30, 30)
-            self.novoPlaneta.setStyleSheet("background-color: white")
- 
+    def replacePlanetsOnScreen(self, planetsData):
+        self.addThose(planetsData)
+        self.planetsIncoming = [self.mountPlanetInstance(planet) for planet in planetsData]
+        for i in self.planetsOnScreen:
+            i.deleteLater()
+        self.planetsOnScreen = self.planetsIncoming
+    
+    def mountPlanetInstance(self, planet):
+        novoPlaneta = QLabel(self.background)
+        novoPlaneta.setGeometry(int(planet["x"]), int(planet["y"]), 30, 30)
+        novoPlaneta.setStyleSheet("background-color: white")
+        return novoPlaneta
+
+#this is how to delete a planet
+#self.novoPlaneta.deleteLater()
+
+
 
     def mexerTela(self, movimento):
         if movimento == "zoomOut":
