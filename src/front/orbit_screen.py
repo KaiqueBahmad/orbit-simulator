@@ -193,6 +193,7 @@ class Ui_Dialog(object):
         self.Down.setAutoFillBackground(False)
         self.Down.setStyleSheet(u"background-color: \"#c2c2c2\";")
         
+
         formDict = {
             "X": self.valorX,
             "Y": self.valorY,
@@ -239,6 +240,7 @@ class Ui_Dialog(object):
     def handlePlanetsUpdate(self, planets_str):
         print("recebi o evento")
         planetsParsed = json.loads(planets_str)
+        print(planetsParsed)
         self.planetsIncoming = [self.mountPlanetInstance(x) for x in planetsParsed]
         for i in self.planetsOnScreen:
             i.deleteLater()
@@ -262,6 +264,7 @@ class Ui_Dialog(object):
         novoPlaneta = QLabel(self.background)
         novoPlaneta.setGeometry(int(planet["x"]), int(planet["y"]), 30, 30)
         novoPlaneta.setStyleSheet("background-color: white")
+        novoPlaneta.show()
         return novoPlaneta
 
 #this is how to delete a planet
