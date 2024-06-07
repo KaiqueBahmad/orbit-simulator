@@ -7,6 +7,6 @@ class Body:
         self.vy = vy
         self.custom_repr = custom_repr
 
-    def __repr__(self) -> str:
-        if self.custom_repr:
-            return f"{self.mass}KG ({self.x}, {self.y}) ({self.vx}, {self.vy})"
+    #def __repr__(self) -> str:
+    #    if self.custom_repr:
+    #        return f"{self.mass}KG ({self.x}, {self.y}) ({self.vx}, {self.vy})"

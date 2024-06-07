@@ -38,7 +38,9 @@ class Sender:
         pass
     
     def save(self, obj):
-            with open('../mailbox','w', encoding='utf-8' ) as file:
+        if len(str(obj)) != 1:
+            
+            with open('src/mailbox','w', encoding='utf-8' ) as file:
                 self.currentId += 1
                 file.write(f"0\n{self.currentId}\n{obj}\n")
         # while True:
@@ -83,9 +85,9 @@ class Sender:
             thread = Thread(target=self.genSecond, kwargs={"store":True,"where":futureFrames})
             thread.start()
             for i in range(self.framerate):
-                
+                print(actualFrames[i])          
                 if firstBit() == "0":
-                    pass
+                    self.save(actualFrames[i])
                 else:
                     status = firstBit()
                     if status == "1":
@@ -113,10 +115,10 @@ class Sender:
         print(f"Gerando {int(qtd/delta)} ticks/s")
 
 if __name__ == '__main__':
-    system = GravitationalSystem([], 0.0001)
+    system = GravitationalSystem([], 0.001)
     system.addBody(Body(1000, 100, -100, 25, 25))
     system.addBody(Body(2000, 150, -200, 35, 15))
-    system.addBody(Body(10000, 0, 0, 10, 10))
+    system.addBody(Body(100000, 0, 0, 50, 10))
     sender = Sender(system)
-    #sender.loop()
-    print(firstBit())
+    sender.loop()
+    #print(firstBit())

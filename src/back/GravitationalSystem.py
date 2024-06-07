@@ -18,7 +18,7 @@ class GravitationalSystem:
         permutations:List[Tuple[Body, Body]] = utils.allPeersList(self.bodies)
         forces = {}
         for i in permutations:
-            forces[i] = utils.forceBetween(i[0], i[1])
+            forces[i] = utils.forceBetween(i[0], i[1], G=0.0001)
         for i in self.bodies:
             resultant_force = [0, 0]
             for j in self.bodies:

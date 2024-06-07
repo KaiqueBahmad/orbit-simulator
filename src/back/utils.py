@@ -1,6 +1,9 @@
 from Body import Body
 import typing
 import math
+import json
+from pprint import pprint
+
 
 #Exemplo de função para ajudar quem for escrever aqui
 def zero_filled_array(array_size): #Coloque nomes entendíveis nos argumentos
@@ -47,11 +50,27 @@ def firstBit():
         except:
             return 0
 
-if __name__ == "__main__":
-    print(allPeersList([1,2]))
-    # b1 = Body(120000000, 0, 0, 0, 0)
-    # b2 = Body(120000, -3, 0, 0,0)
-    # G = 6.6743*10**(-11)
-    # print(forceBetween(b1, b2,G=G))
+def parseStringToBody(string):
+    dados = json.loads(string)
+    retorno = []
+    if type(dados) == list:
+        for i in dados:
+            mass = i["mass"]
+            x = i["x"]
+            y = i["y"]
+            vx = i["vx"]
+            vy = i["vy"]
+            retorno.append(Body(mass, x, y, vx, vy))
+    else:
+        mass = dados["mass"]
+        x = dados["x"]
+        y = dados["y"]
+        vx = dados["vx"]
+        vy = dados["vy"]
+        retorno = Body(mass, x, y, vx, vy)
+    return retorno
 
+if __name__ == "__main__":
+    toParse = '[{"mass":150, "x":300,"y":500,"vx":100,"vy":200},{"mass":150, "x":300,"y":500,"vx":100,"vy":200}]'
+    pprint(parseStringToBody(toParse))
 
