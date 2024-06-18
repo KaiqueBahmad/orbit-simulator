@@ -201,6 +201,8 @@ class Ui_Dialog(object):
         
         self.criarPlaneta.clicked.connect(lambda: self.criarPlanet(formDict))
         self.retranslateUi(Dialog)
+        self.variationX = 0
+        self.variationY = 0
         
         QMetaObject.connectSlotsByName(Dialog)
         self.threadpool = QThreadPool()
@@ -266,7 +268,7 @@ class Ui_Dialog(object):
     
     def mountPlanetInstance(self, planet):
         novoPlaneta = QLabel(self.background)
-        novoPlaneta.setGeometry(int(planet["x"]), int(planet["y"]), 30, 30)
+        novoPlaneta.setGeometry(int(planet["x"]+ self.variationX), int(planet["y"]+ self.variationY), 30, 30)
         novoPlaneta.setStyleSheet("background-color: white")
         novoPlaneta.show()
         print(f"montado em ({planet['x']}, {planet['y']})")
@@ -276,23 +278,20 @@ class Ui_Dialog(object):
 #self.novoPlaneta.deleteLater()
 
 #    [ DEBUG ]
-#    def mexerTela(self, movimento):
-#        if movimento == "zoomOut":
-#            print("zoomOut")
-#        elif movimento == "zoomIn":
-#            print("zoomIn")
-#        elif movimento == "Right":
-#            print("Right")
-#        elif movimento == "Up":
-#            self.novoPlaneta = QLabel(self.background)
-#            self.novoPlaneta.setObjectName(u"planeta")
-#            self.novoPlaneta.setGeometry(30, 30, 30, 30)
-#            self.novoPlaneta.setStyleSheet("background-color: white")
-#            self.novoPlaneta.show()    
-#            print("Up")
-#        elif movimento == "Left":
-#            print("Left")
-#        elif movimento == "Down":
-#            print(self.background.children())
-#            print(self.novoPlaneta)
-#            self.novoPlaneta.deleteLater()
+    def mexerTela(self, movimento):
+        if movimento == "zoomOut":
+            print("zoomOut")
+        elif movimento == "zoomIn":
+            print("zoomIn")
+        elif movimento == "Right":
+            self.variationX -= 20
+            print("Right")
+        elif movimento == "Up":
+            self.variationY += 20   
+            print("Up")
+        elif movimento == "Left":
+            self.variationX += 20
+            print("Left")
+        elif movimento == "Down":
+            self.variationY -= 20
+            print("Down")
