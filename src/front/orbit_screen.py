@@ -19,6 +19,7 @@ from PySide6.QtWidgets import (QApplication, QDialog, QFrame, QLabel,
 from Receiver import Receiver
 import resources.resources_rc as resources_rc
 import json
+from math import log
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         if not Dialog.objectName():
@@ -203,6 +204,7 @@ class Ui_Dialog(object):
         self.retranslateUi(Dialog)
         self.variationX = 0
         self.variationY = 0
+        self.scale      = 1
         
         QMetaObject.connectSlotsByName(Dialog)
         self.threadpool = QThreadPool()
@@ -268,7 +270,7 @@ class Ui_Dialog(object):
     
     def mountPlanetInstance(self, planet):
         novoPlaneta = QLabel(self.background)
-        novoPlaneta.setGeometry(int(planet["x"]+ self.variationX), int(planet["y"]+ self.variationY), 30, 30)
+        novoPlaneta.setGeometry(int((planet["x"]+ self.variationX)*self.scale), int((planet["y"]+ self.variationY)*self.scale), 30, 30)
         novoPlaneta.setStyleSheet("background-color: white")
         novoPlaneta.show()
         print(f"montado em ({planet['x']}, {planet['y']})")
@@ -280,18 +282,18 @@ class Ui_Dialog(object):
 #    [ DEBUG ]
     def mexerTela(self, movimento):
         if movimento == "zoomOut":
-            print("zoomOut")
+            self.scale /= 2
         elif movimento == "zoomIn":
-            print("zoomIn")
+            self.scale *= 2
         elif movimento == "Right":
-            self.variationX -= 20
+            self.variationX -= 20 * (1/self.scale)
             print("Right")
         elif movimento == "Up":
-            self.variationY += 20   
+            self.variationY += 20 * (1/self.scale)
             print("Up")
         elif movimento == "Left":
-            self.variationX += 20
+            self.variationX += 20 * (1/self.scale)
             print("Left")
         elif movimento == "Down":
-            self.variationY -= 20
+            self.variationY -= 20 * (1/self.scale)
             print("Down")

@@ -43,17 +43,6 @@ class Sender:
             with open('src/mailbox','w', encoding='utf-8' ) as file:
                 self.currentId += 1
                 file.write(f"0\n{self.currentId}\n{obj}\n")
-        # while True:
-        #     with open('../mailbox','r+', encoding='utf-8' ) as file:
-        #         if file.read(1) == '0':
-        #             file.close()
-        #             continue
-        #         file.seek(0)
-        #         file.write(f"0\n{self.currentId}\n{json.dumps(obj)}\n")
-        #         self.currentId = self.currentId + 1
-        #         file.close()
-        #         break
-
 
     def genSecond(self, store=False, where=None):
         secondFrames = []
@@ -87,7 +76,7 @@ class Sender:
             for i in range(self.framerate):
                 print(actualFrames[i])          
                 if firstBit() == "0":
-                    self.save(actualFrames[i])
+                    continue
                 else:
                     status = firstBit()
                     if status == "1":
