@@ -67,8 +67,11 @@ def parseStringToBody(string):
         y = dados["y"]
         vx = dados["vx"]
         vy = dados["vy"]
-        retorno = Body(mass, x, y, vx, vy)
-    return retorno
+        retorno = [Body(mass, x, y, vx, vy)]
+    if type(retorno) == Body or (type(retorno) and (len(retorno) == 0 or type(retorno[0]) == Body))
+        return retorno
+    else:
+        return []
 
 if __name__ == "__main__":
     toParse = '[{"mass":150, "x":300,"y":500,"vx":100,"vy":200},{"mass":150, "x":300,"y":500,"vx":100,"vy":200}]'

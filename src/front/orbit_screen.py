@@ -84,6 +84,7 @@ class Ui_Dialog(object):
 "height: 20px;\n"
 "background-color: white;\n"
 "color: black;")
+
         self.valorX.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAsNeeded)
         self.valorX.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAsNeeded)
         self.criarPlaneta = QPushButton(self.containerInputs)
@@ -200,7 +201,16 @@ class Ui_Dialog(object):
         self.planetsIncoming = []
         receiverInstance.signals.addPlanetsSignal.connect(self.handlePlanetsUpdate)
         
-        self.criarPlaneta.clicked.connect(lambda: self.criarPlanet(formDict))
+        
+        self.newPlanetForm = {
+            "X": self.valorX,
+            "Y": self.valorY,
+            "Massa": self.valorMassa,
+            "Velocidade X": self.ValorVeloX,
+            "Velocidade Y": self.ValorVeloY
+        }
+
+        self.criarPlaneta.clicked.connect(lambda: self.criarPlanet(parseNewPlanetForm(self.newPlanetForm)))
         self.retranslateUi(Dialog)
         self.variationX = 0
         self.variationY = 0
@@ -234,6 +244,18 @@ class Ui_Dialog(object):
         self.Left.clicked.connect(lambda: self.mexerTela("Left"))
         self.Down.clicked.connect(lambda: self.mexerTela("Down"))
     
+    def newPlanetForm(self, planetForm):
+        for attribute in planetForm:
+            if not planetForm[attribute] or not planetForm.replace(".","").isnumeric() and planetForm.count(".") <= 1:
+                return [False]
+        newForm = {
+            "mass" : planetsForm["Massa"],
+            "x"    : planetsForm["X"],
+            "y"    : planetsForm["Y"]
+        }
+        return [True, newForm]
+
+
     def handlePlanetsUpdate(self, planets_str):
         print("recebi o evento")
         planetsParsed = json.loads(planets_str)
@@ -283,8 +305,12 @@ class Ui_Dialog(object):
     def mexerTela(self, movimento):
         if movimento == "zoomOut":
             self.scale /= 2
+            self.variationX *= 1/2
+            self.variationY *= 1/2
         elif movimento == "zoomIn":
             self.scale *= 2
+            self.variationX *= 2
+            self.variationY *= 2
         elif movimento == "Right":
             self.variationX -= 20 * (1/self.scale)
             print("Right")

@@ -82,6 +82,10 @@ class Sender:
                     if status == "1":
                         self.save(actualFrames[i])
                     elif status == "2":
+                        #planetData = self.readThirdLine()
+                        #for planet in leitura de planet data
+                        #add planeta na lista
+
                         # Função para ler a 3° linha do arquivo verificar se dá pra montar um planeta
                         # montar o planeta e adicionar no sistema
                         # self.gravitySystem.addBody(None)
