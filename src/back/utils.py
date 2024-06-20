@@ -33,8 +33,8 @@ def forceBetween(b1:Body, b2:Body, G:float=1) -> list :
     sin:float = (b2.y - b1.y) / distance
     cos:float = (1-sin**2)**(1/2)
     #Calculates the force between the bodies
-    if distance == 0:
-        distance = random.random()
+    if distance < 10:
+        return [-1, -1]
     force:float =  (b1.mass * b2.mass) / distance**2
     force *= G #Applies the gravitiational constant
     fx:float = abs(force * cos) # Decomposes the force to X

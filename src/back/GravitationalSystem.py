@@ -11,7 +11,7 @@ class GravitationalSystem:
         self.tickLength:float = tickLength
     
     def addBody(self, body:Body):
-        self.bodies.append(body)
+        self.bodies.append(body)        
 
     def nextTick(self):
         forcesList = []
@@ -19,6 +19,19 @@ class GravitationalSystem:
         forces = {}
         for i in permutations:
             forces[i] = utils.forceBetween(i[0], i[1], G=0.0001)
+            if forces[i] == [-1, -1]:
+                self.bodies.remove(i[0])
+                self.bodies.remove(i[1])
+                planetaSoma = Body(
+                    mass= i[0].mass + i[1].mass,
+                    x= i[0].x,
+                    y=i[0].y,
+                    vx= i[0].vx + i[1].vx,
+                    vy= i[0].vy + i[1].vy
+                )
+                self.addBody(planetaSoma)
+                return self.nextTick()
+                
         for i in self.bodies:
             resultant_force = [0, 0]
             for j in self.bodies:

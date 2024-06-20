@@ -82,7 +82,6 @@ class Sender:
                         if type(actualFrames) == list:
                             self.save(actualFrames[i])
                     elif status == "2":
-
                         planetData = readThirdLine()
                         print(planetData)
                         new_planets = parseStringToBody(planetData)
