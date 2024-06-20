@@ -286,9 +286,9 @@ class Ui_Dialog(object):
 #        novoPlaneta.show()
 #    
     def criarPlanet(self, planetForm):
-        for attribute in planetForm:
-            if not planetForm[attribute] or not planetForm[attribute].replace(".","").isnumeric() and planetForm[attribute].count(".") <= 1:
-                return [False]
+        # for attribute in planetForm:
+        #     if not planetForm[attribute] or not planetForm[attribute].replace(".","").isnumeric() and planetForm[attribute].count(".") <= 1:
+        #         return [False]
         newForm = {
             "mass" : planetForm["Massa"],
             "x"    : planetForm["X"],

@@ -62,18 +62,18 @@ def parseStringToBody(string):
     retorno = []
     if type(dados) == list:
         for i in dados:
-            mass = i["mass"]
-            x = i["x"]
-            y = i["y"]
-            vx = i["vx"]
-            vy = i["vy"]
+            mass = float(i["mass"])
+            x = float(i["x"])
+            y = float(i["y"])
+            vx = float(i["vx"])
+            vy = float(i["vy"])
             retorno.append(Body(mass, x, y, vx, vy))
     else:
-        mass = dados["mass"]
-        x = dados["x"]
-        y = dados["y"]
-        vx = dados["vx"]
-        vy = dados["vy"]
+        mass = float(dados["mass"])
+        x = float(dados["x"])
+        y = float(dados["y"])
+        vx = float(dados["vx"])
+        vy = float(dados["vy"])
         retorno = [Body(mass, x, y, vx, vy)]
     if type(retorno) == Body or (type(retorno) and (len(retorno) == 0 or type(retorno[0]) == Body)):
         return retorno

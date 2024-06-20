@@ -84,7 +84,9 @@ class Sender:
                     elif status == "2":
 
                         planetData = readThirdLine()
+                        print(planetData)
                         new_planets = parseStringToBody(planetData)
+                        print(new_planets)
                         for planet in new_planets:
                             print(planet)
                             self.gravitySystem.addBody(planet)
