@@ -49,6 +49,13 @@ def firstBit():
                 return file.read(1)
         except:
             return 0
+        
+def readThirdLine():
+    try:
+        with open("src/mailbox", 'r', encoding="utf-8") as file:
+            return file.readlines()[2]
+    except:
+        return '[]'
 
 def parseStringToBody(string):
     dados = json.loads(string)
@@ -68,7 +75,7 @@ def parseStringToBody(string):
         vx = dados["vx"]
         vy = dados["vy"]
         retorno = [Body(mass, x, y, vx, vy)]
-    if type(retorno) == Body or (type(retorno) and (len(retorno) == 0 or type(retorno[0]) == Body))
+    if type(retorno) == Body or (type(retorno) and (len(retorno) == 0 or type(retorno[0]) == Body)):
         return retorno
     else:
         return []

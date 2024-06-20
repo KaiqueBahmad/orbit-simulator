@@ -84,7 +84,6 @@ class Ui_Dialog(object):
 "height: 20px;\n"
 "background-color: white;\n"
 "color: black;")
-
         self.valorX.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAsNeeded)
         self.valorX.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAsNeeded)
         self.criarPlaneta = QPushButton(self.containerInputs)
@@ -210,7 +209,7 @@ class Ui_Dialog(object):
             "Velocidade Y": self.ValorVeloY
         }
 
-        self.criarPlaneta.clicked.connect(lambda: self.criarPlanet(parseNewPlanetForm(self.newPlanetForm)))
+        self.criarPlaneta.clicked.connect(lambda: self.criarPlanet(self.parseNewPlanetForm(self.newPlanetForm)))
         self.retranslateUi(Dialog)
         self.variationX = 0
         self.variationY = 0
@@ -244,16 +243,26 @@ class Ui_Dialog(object):
         self.Left.clicked.connect(lambda: self.mexerTela("Left"))
         self.Down.clicked.connect(lambda: self.mexerTela("Down"))
     
-    def newPlanetForm(self, planetForm):
-        for attribute in planetForm:
-            if not planetForm[attribute] or not planetForm.replace(".","").isnumeric() and planetForm.count(".") <= 1:
-                return [False]
-        newForm = {
-            "mass" : planetsForm["Massa"],
-            "x"    : planetsForm["X"],
-            "y"    : planetsForm["Y"]
-        }
-        return [True, newForm]
+    def parseNewPlanetForm(self, fields):
+        response = {}
+        for field_name in fields:
+            response.update(
+                {field_name: fields[field_name].toPlainText()}
+            )
+        print(response)
+        return response
+    # def newPlanetForm(self, planetForm):
+    #     for attribute in planetForm:
+    #         if not planetForm[attribute] or not planetForm.replace(".","").isnumeric() and planetForm.count(".") <= 1:
+    #             return [False]
+    #     newForm = {
+    #         "mass" : planetForm["Massa"],
+    #         "x"    : planetForm["X"],
+    #         "y"    : planetForm["Y"],
+    #         "vx"   : planetForm["Velocidade X"],
+    #         "vy"   : planetForm["Velocidade Y"]
+    #     }
+    #     return [True, newForm]
 
 
     def handlePlanetsUpdate(self, planets_str):
@@ -276,12 +285,19 @@ class Ui_Dialog(object):
 #        novoPlaneta.setStyleSheet(u"background-color: #ffffff")
 #        novoPlaneta.show()
 #    
-    def criarPlanet(self, formDict):
-        dadosDoPlaneta = {x:formDict[x].toPlainText() for x in formDict}
-        for i in dadosDoPlaneta:
-            if not dadosDoPlaneta[i].isnumeric():
-                return
-        self.planets_queue.append(dadosDoPlaneta)
+    def criarPlanet(self, planetForm):
+        for attribute in planetForm:
+            if not planetForm[attribute] or not planetForm[attribute].replace(".","").isnumeric() and planetForm[attribute].count(".") <= 1:
+                return [False]
+        newForm = {
+            "mass" : planetForm["Massa"],
+            "x"    : planetForm["X"],
+            "y"    : planetForm["Y"],
+            "vx"   : planetForm["Velocidade X"],
+            "vy"   : planetForm["Velocidade Y"]
+        }
+
+        self.planets_queue.append(newForm)
 
     def replacePlanetsOnScreen(self, planetsData):
         self.addThose(planetsData)

@@ -11,7 +11,7 @@ from GravitationalSystem import GravitationalSystem
 from Body import Body
 from time import time, sleep
 from threading import Thread
-from utils import firstBit
+from utils import firstBit, readThirdLine, parseStringToBody
 # Mailer: a ideia é que ele é o "mensageiro" que entrega as mensagens
 # para a bridge, e ele segue um protocolo simples
 # 1° Linha é um 0 ou 1, que significa respectivamente Lido / Não Lido
@@ -74,22 +74,26 @@ class Sender:
             thread = Thread(target=self.genSecond, kwargs={"store":True,"where":futureFrames})
             thread.start()
             for i in range(self.framerate):
-                print(actualFrames[i])          
                 if firstBit() == "0":
                     continue
                 else:
                     status = firstBit()
                     if status == "1":
-                        self.save(actualFrames[i])
+                        if type(actualFrames) == list:
+                            self.save(actualFrames[i])
                     elif status == "2":
-                        #planetData = self.readThirdLine()
-                        #for planet in leitura de planet data
-                        #add planeta na lista
 
+                        planetData = readThirdLine()
+                        new_planets = parseStringToBody(planetData)
+                        for planet in new_planets:
+                            print(planet)
+                            self.gravitySystem.addBody(planet)
+                        if type(actualFrames) == list:
+                            self.save(actualFrames[i])
                         # Função para ler a 3° linha do arquivo verificar se dá pra montar um planeta
                         # montar o planeta e adicionar no sistema
                         # self.gravitySystem.addBody(None)
-                        pass
+
                 sleep(secondsPerFrame)
 
     def benchmark(self):

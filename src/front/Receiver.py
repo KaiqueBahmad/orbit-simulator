@@ -40,7 +40,9 @@ class Receiver(QRunnable):
                     if len(self.main_screen.planets_queue) > 0:
                         new_planets_string = json.dumps(self.main_screen.planets_queue)
                         file.seek(0)
-                        file.write(f"2\n\n{new_planets_string}")
+                        file.truncate()
+                        file.seek(0)
+                        file.write(f"2\n\n{new_planets_string}\n")
                         self.main_screen.planets_queue = []
                     else:
                         file.seek(0)
