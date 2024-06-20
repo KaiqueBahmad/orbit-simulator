@@ -307,6 +307,7 @@ class Ui_Dialog(object):
         self.planetsOnScreen = self.planetsIncoming
     
     def mountPlanetInstance(self, planet):
+        # Planet tem 3 atributos x, y, mass
         novoPlaneta = QLabel(self.background)
         novoPlaneta.setGeometry(int((planet["x"]+ self.variationX)*self.scale), int((planet["y"]+ self.variationY)*self.scale), 30, 30)
         novoPlaneta.setStyleSheet("background-color: white")
